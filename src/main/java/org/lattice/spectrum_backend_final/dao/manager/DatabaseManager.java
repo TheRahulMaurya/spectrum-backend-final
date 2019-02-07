@@ -17,6 +17,9 @@ public class DatabaseManager {
 	public static JSONArray getJSONFromResultSet(ResultSet rs) {
   
 		JSONArray jsonArray = new JSONArray();
+		
+		
+		
 		if(rs!=null)
 		{
 		  try {
@@ -41,20 +44,22 @@ public class DatabaseManager {
 	}
 
 
-	    public void save(String title) throws Exception
+		//public void saveUser(String user_id , String employee_id ,String prefix ,String firstName ,String middlename ,String lastname ,String email ,String country_code ,String contact ,String is_active) throws Exception
+	    public void saveUser(String user_id ) throws Exception
 	    {
-
-	        final String INSERT_QUERY = "insert into todo (title) values('"+title+"');"; 
-	        
 
 	        try {
 	            Connection conn = DBConnectionManager.getInstance().getConnection();
 
+	            
 	            conn.setAutoCommit(false);
 
 	            Statement stmt = conn.createStatement();
+	            
+	            stmt.addBatch("insert into role_master values(1,'admin');");
+	            stmt.addBatch("insert into user_role values(1,1);");
 
-	           stmt.executeUpdate(INSERT_QUERY);
+	           stmt.executeBatch();
 
 	           stmt.close();
 	           conn.commit();
@@ -138,8 +143,7 @@ public class DatabaseManager {
 	           stmt.close();
 	           conn.commit();
 	           conn.close();
-	           
-	         
+
 	        } catch (SQLException ex) {
 	            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
 	        }

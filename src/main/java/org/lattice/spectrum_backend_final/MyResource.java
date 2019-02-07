@@ -5,6 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.lattice.spectrum_backend_final.dao.manager.DatabaseManager;
+
 /**
  * Root resource (exposed at "myresource" path)
  */
@@ -20,6 +22,19 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
+    	
+    	DatabaseManager dbManager = new DatabaseManager();
+    	
+    	try {
+			dbManager.saveUser("1");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
         return "Got it!";
     }
+    
+    
+  
 }
