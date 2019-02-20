@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+import java.sql.*;
+
 public class DBConnectionManager
 {
     
-    private static final String DB_URL="jdbc:sqlite:S:/sqlite/rahul.db";
+    private static final String DB_URL="jdbc:sqlite:S:/sqlite/spectrum.db";
 
     private static final String DRIVER="org.sqlite.JDBC";
 
