@@ -20,22 +20,26 @@ public class Main {
 
     public static void main(String[] args) {
  
-
+    	SocketIOServer socketServer = null;
+    	Server server = null ;
+    	
+    	try {
+    		
         //code for websocket
         
         Configuration configuration = new Configuration();
-        configuration.setHostname("0.0.0.0");
+        configuration.setHostname("localhost");
         configuration.setPort(9090);
         
         
  
-        final SocketIOServer socketServer = new SocketIOServer(configuration);
+        socketServer = new SocketIOServer(configuration);
  
         
         
         
       //code for jetty
-        Server server = new Server(9999);
+        server = new Server(9999);
 
         ServletContextHandler ctx = 
                 new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
@@ -43,7 +47,7 @@ public class Main {
         ctx.setContextPath("/");
         server.setHandler(ctx);
 
-        ServletHolder serHol = ctx.addServlet(ServletContainer.class, "/spectrum/*");
+        ServletHolder serHol = ctx.addServlet(ServletContainer.class, "/rest/*");
         serHol.setInitOrder(1);
         serHol.setInitParameter("jersey.config.server.provider.packages", 
                 "org.lattice.spectrum_backend_final.services.handler");
@@ -54,7 +58,7 @@ public class Main {
 
         socketServer.start();
         System.out.println("Websocket server started at "+configuration.getPort());
-        try {
+        
             server.start();
             System.out.println("jetty server started at "+9999);
             Thread.sleep(Integer.MAX_VALUE);

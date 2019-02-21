@@ -299,10 +299,7 @@ public class DatabaseManager {
             PreparedStatement stmt = conn.prepareStatement("insert into user_master (employee_id , created_on,is_active)values('"+userJson.getString("employeeId")+"','"+userJson.getString("createdOn")+"','true');",Statement.RETURN_GENERATED_KEYS);
             
             int affectedRows = stmt.executeUpdate();
-            
-            
-            
-            
+
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     userId = generatedKeys.getInt(1);
